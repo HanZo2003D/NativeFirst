@@ -16,8 +16,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{headerShown: false}}>
-        <RootStack.Screen name="signup" component={SignUp} />
         <RootStack.Screen name="Tabs" component={Tabs} />
+        <RootStack.Screen name="signup" component={SignUp} />
         <RootStack.Screen name="login" component={Login} />
         <RootStack.Screen name="home" component={Home} />
         <RootStack.Screen name="about" component={About} />
