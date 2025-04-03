@@ -1,23 +1,27 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, StyleSheet, Alert} from 'react-native';
 import Button from '../../components/Button';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../../store/slice/authSlice';
+import {RootState} from '../../store/store';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigation = useNavigation<any>();
+  const dispatch = useDispatch();
+  const userLoggedIn = useSelector(
+    (state: RootState) => state.auth.loggedInUser,
+  );
 
   const handleLogin = (): void => {
-    if (email && password) {
+    dispatch(login({email, password}));
+    if (userLoggedIn) {
       Alert.alert('Login Successful!', `Welcome back, ${email}!`);
+      navigation.navigate('Tabs');
     } else {
-      Alert.alert('Error', 'Please enter both email and password.');
+      Alert.alert('Error', 'Invalid User Email or Password.');
     }
   };
 
@@ -46,7 +50,10 @@ const Login: React.FC = () => {
       </Text>
       <Button title="Login" onPress={handleLogin} />
       <Text style={styles.footerText}>
-        Don't have an account? <Text style={styles.link}>Sign Up</Text>
+        Don't have an account?{' '}
+        <Text style={styles.link} onPress={() => navigation.navigate('signup')}>
+          Sign Up
+        </Text>
       </Text>
       <View
         style={{

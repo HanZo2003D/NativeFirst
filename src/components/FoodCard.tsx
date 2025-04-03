@@ -1,21 +1,28 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 type Props = {
   title: string;
   price: number;
+  navigation: any;
+  foodCategory?: string;
 };
 
-const FoodCard = ({title, price}: Props) => {
+const FoodCard = ({title, price, navigation, foodCategory}: Props) => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../screens/assets/item1.jpg')}
-        style={styles.chickenImage}
-      />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>${price}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('Detail', {title, price, foodCategory})
+      }>
+      <View style={styles.container}>
+        <Image
+          source={require('../screens/assets/item1.jpg')}
+          style={styles.chickenImage}
+        />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.price}>${price}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

@@ -2,18 +2,22 @@ import React, {use, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Alert} from 'react-native';
 import Button from '../../components/Button';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {signup} from '../../store/slice/authSlice';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const dispatch = useDispatch();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const handleSignUp = (): void => {
+    dispatch(signup({email, password}));
     if (email && password) {
       Alert.alert('SignUp Successful!', `Welcome, ${name}!`);
-      navigation.navigate('Tabs');
+      navigation.navigate('login');
     } else {
       Alert.alert('Error', 'Please enter both email and password.');
     }

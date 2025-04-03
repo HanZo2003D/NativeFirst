@@ -13,7 +13,7 @@ import FoodCard from '../../components/FoodCard';
 
 type Props = {};
 
-const HomeScreen = (props: Props) => {
+const HomeScreen = ({navigation}: {navigation: any}) => {
   const [searchText, setSearchText] = useState('');
   const [data, setData] = useState([
     'Apple',
@@ -24,16 +24,17 @@ const HomeScreen = (props: Props) => {
     'Fig',
     'Grape',
   ]);
-
   const foodItems = [
-    {id: 1, name: 'Chicken Tandori', price: 20.29},
-    {id: 2, name: 'Chicken ', price: 20.29},
-    {id: 3, name: 'Chicken Tandori', price: 20.29},
-    {id: 4, name: ' Tandori', price: 20.29},
-    {id: 1, name: 'Chicken Tandori', price: 20.29},
-    {id: 2, name: 'Chicken Tandori', price: 20.29},
-    {id: 3, name: 'Chicken Tandori', price: 20.29},
-    {id: 4, name: 'Chicken Tandori', price: 20.29},
+    {id: '1', title: 'Pizza', foodCategory: 'Fast Food', price: 12.99},
+    {id: '2', title: 'Burger', foodCategory: 'Fast Food', price: 8.99},
+    {id: '3', title: 'Pasta', foodCategory: 'Italian', price: 15.99},
+    {id: '4', title: 'Sushi', foodCategory: 'Japanese', price: 22.5},
+    {id: '5', title: 'Tacos', foodCategory: 'Mexican', price: 10.5},
+    {id: '6', title: 'Salad', foodCategory: 'Healthy', price: 7.99},
+    {id: '7', title: 'Ramen', foodCategory: 'Japanese', price: 13.5},
+    {id: '8', title: 'Steak', foodCategory: 'American', price: 25.99},
+    {id: '9', title: 'Paneer Tikka', foodCategory: 'Indian', price: 14.99},
+    {id: '10', title: 'Spring Rolls', foodCategory: 'Chinese', price: 9.99},
   ];
 
   const filteredData = data.filter(item =>
@@ -139,7 +140,12 @@ const HomeScreen = (props: Props) => {
           data={foodItems}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
-            <FoodCard title={item.name} price={item.price} />
+            <FoodCard
+              title={item.title}
+              price={item.price}
+              navigation={navigation}
+              foodCategory={item.foodCategory}
+            />
           )}
           horizontal // Enables horizontal scrolling
           showsHorizontalScrollIndicator={false} // Hides the scrollbar
@@ -150,7 +156,12 @@ const HomeScreen = (props: Props) => {
           data={foodItems}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
-            <FoodCard title={item.name} price={item.price} />
+            <FoodCard
+              title={item.title}
+              price={item.price}
+              foodCategory={item.foodCategory}
+              navigation={navigation}
+            />
           )}
           horizontal // Enables horizontal scrolling
           showsHorizontalScrollIndicator={false} // Hides the scrollbar

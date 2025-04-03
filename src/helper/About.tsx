@@ -1,13 +1,15 @@
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import React from 'react';
 import GridExample from '../components/GridExample';
-import {Button} from '@react-navigation/elements';
+
 import {useNavigation} from '@react-navigation/native';
 
-type Props = {};
+type Props = {
+  onPress: () => void;
+};
 
-const About = (props: Props) => {
-  const navigation = useNavigation();
+const About = (onPress: Props) => {
+  const navigation = useNavigation<any>();
 
   const handlePress = () => {
     navigation.navigate('map');
@@ -62,9 +64,6 @@ const About = (props: Props) => {
         </Text>
       </View>
       <GridExample />
-      <Button onPress={handlePress}>
-        <Text>Hi</Text>
-      </Button>
     </View>
   );
 };
