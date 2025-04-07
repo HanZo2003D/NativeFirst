@@ -1,36 +1,52 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   title: string;
   price: number;
   navigation: any;
   foodCategory?: string;
+  image: any;
 };
 
-const FoodCard = ({title, price, navigation, foodCategory}: Props) => {
+const FoodCard = ({title, price, navigation, foodCategory, image}: Props) => {
+  const [like, setLike] = useState(false);
+  const handlePress = () => {
+    setLike(!like);
+  };
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('Detail', {title, price, foodCategory})
-      }>
-      <View style={styles.container}>
-        <Image
-          source={require('../screens/assets/item1.jpg')}
-          style={styles.chickenImage}
-        />
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.price}>${price}</Text>
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Detail', {title, price, foodCategory, image})
+        }>
+        <Image source={image} style={styles.chickenImage} />
+      </TouchableOpacity>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.price}>${price}</Text>
+        </View>
+        <TouchableOpacity onPress={handlePress}>
+          <Icon
+            name={like ? 'heart' : 'heart-outline'}
+            size={25}
+            color={like ? 'red' : 'black'}
+            style={{paddingRight: 10, paddingTop: 10}}
+          />
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 210,
-    width: 120,
+    height: 200,
+    width: 140,
     marginRight: 20,
+    shadowColor: '#000',
   },
   chickenImage: {
     height: 150,
@@ -40,7 +56,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 14,
-    marginVertical: 6,
+    marginTop: 4,
   },
   price: {
     fontSize: 12,

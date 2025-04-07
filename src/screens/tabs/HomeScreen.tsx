@@ -10,165 +10,126 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FoodCard from '../../components/FoodCard';
+import {foodItems} from '../../data/Data';
 
 type Props = {};
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   const [searchText, setSearchText] = useState('');
-  const [data, setData] = useState([
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Date',
-    'Elderberry',
-    'Fig',
-    'Grape',
-  ]);
-  const foodItems = [
-    {id: '1', title: 'Pizza', foodCategory: 'Fast Food', price: 12.99},
-    {id: '2', title: 'Burger', foodCategory: 'Fast Food', price: 8.99},
-    {id: '3', title: 'Pasta', foodCategory: 'Italian', price: 15.99},
-    {id: '4', title: 'Sushi', foodCategory: 'Japanese', price: 22.5},
-    {id: '5', title: 'Tacos', foodCategory: 'Mexican', price: 10.5},
-    {id: '6', title: 'Salad', foodCategory: 'Healthy', price: 7.99},
-    {id: '7', title: 'Ramen', foodCategory: 'Japanese', price: 13.5},
-    {id: '8', title: 'Steak', foodCategory: 'American', price: 25.99},
-    {id: '9', title: 'Paneer Tikka', foodCategory: 'Indian', price: 14.99},
-    {id: '10', title: 'Spring Rolls', foodCategory: 'Chinese', price: 9.99},
-  ];
 
-  const filteredData = data.filter(item =>
-    item.toLowerCase().includes(searchText.toLowerCase()),
-  );
-  const handlePress = () => {
-    console.log('hi');
-  };
+  const filteredData = foodItems
+    .map(item => item.title) // Extract titles only
+    .filter(title => title.toLowerCase().includes(searchText.toLowerCase()));
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.heading}>Home</Text>
-        {/* Search Input */}
-        <TextInput
-          style={styles.input}
-          placeholder="Search here..."
-          value={searchText}
-          onChangeText={text => setSearchText(text)}
+    <View style={styles.container}>
+      <Text style={styles.heading}>Home</Text>
+      {/* Search Input */}
+      <TextInput
+        style={styles.input}
+        placeholder="Search here..."
+        value={searchText}
+        onChangeText={text => setSearchText(text)}
+      />
+      {/* Overlaying Search Results */}
+      {searchText ? (
+        <FlatList
+          data={filteredData}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          style={styles.overlayList} // Custom style to overlay content
         />
-        {/* Overlaying Search Results */}
-        {searchText ? (
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-            style={styles.overlayList} // Custom style to overlay content
-          />
-        ) : null}
-        {/* Content Below Search */}
-        <View style={styles.bottomContent}>
-          <Text style={{color: 'white', marginBottom: 5}}>
-            Delivery to Home
+      ) : null}
+      {/* Content Below Search */}
+      <View style={styles.bottomContent}>
+        <Text style={{color: 'white', marginBottom: 5, fontSize: 20}}>
+          Delivery to Home
+        </Text>
+        <Text
+          style={{
+            color: 'white',
+            marginBottom: 10,
+            fontWeight: 400,
+            fontSize: 14,
+          }}>
+          Haritcolony street no 8,Gwarko
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'white',
+            width: 60,
+            paddingVertical: 4,
+            borderRadius: 8,
+          }}>
+          <Text style={styles.bottomText}>2.4km</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.bottomContents}>
+        <View style={{paddingVertical: 30}}>
+          <Text
+            style={{
+              color: '#000',
+              marginBottom: 2,
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}>
+            Chicken Teriyaki
           </Text>
           <Text
             style={{
-              color: 'white',
-              marginBottom: 10,
-              fontWeight: 200,
+              color: '#000',
+              marginBottom: 12,
+              fontWeight: 400,
               fontSize: 12,
             }}>
-            Haritcolony street no 8,Gwarko
+            Discount 25%
           </Text>
           <TouchableOpacity
             style={{
-              backgroundColor: 'white',
-              width: 60,
-              paddingVertical: 4,
+              backgroundColor: '#327958',
+              width: 120,
+              paddingVertical: 10,
+
               borderRadius: 8,
+              marginTop: 15,
             }}>
-            ,<Text style={styles.bottomText}>2.4km</Text>
+            <Text style={{color: 'white', textAlign: 'center'}}>Order Now</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.bottomContents}>
-          <View>
-            <Text
-              style={{
-                color: '#000',
-                marginBottom: 2,
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>
-              Chicken Teriyaki
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                marginBottom: 12,
-                fontWeight: 400,
-                fontSize: 12,
-              }}>
-              Discount 25%
-            </Text>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#327958',
-                width: 120,
-                paddingVertical: 10,
-
-                borderRadius: 8,
-              }}>
-              ,
-              <Text style={{color: 'white', textAlign: 'center'}}>
-                Order Now
-              </Text>
-            </TouchableOpacity>
-          </View>
-
+        <View style={{height: 150, flex: 1}}>
           <Image
             source={require('../assets/chicken.webp')}
             style={styles.chickenImage}
           />
         </View>
-        <Text
-          style={{
-            marginTop: 20,
-            fontSize: 18,
-            fontWeight: 'bold',
-            marginBottom: 15,
-          }}>
-          Top of Week
-        </Text>
-        <FlatList
-          data={foodItems}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <FoodCard
-              title={item.title}
-              price={item.price}
-              navigation={navigation}
-              foodCategory={item.foodCategory}
-            />
-          )}
-          horizontal // Enables horizontal scrolling
-          showsHorizontalScrollIndicator={false} // Hides the scrollbar
-          // Adds spacing and styling
-          style={{marginBottom: 10}}
-        />
-        <FlatList
-          data={foodItems}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <FoodCard
-              title={item.title}
-              price={item.price}
-              foodCategory={item.foodCategory}
-              navigation={navigation}
-            />
-          )}
-          horizontal // Enables horizontal scrolling
-          showsHorizontalScrollIndicator={false} // Hides the scrollbar
-          // Adds spacing and styling
-        />
       </View>
-    </ScrollView>
+      <Text
+        style={{
+          marginTop: 30,
+          fontSize: 18,
+          fontWeight: 'bold',
+          marginBottom: 15,
+        }}>
+        Top of Week
+      </Text>
+      <FlatList
+        data={foodItems}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => (
+          <FoodCard
+            title={item.title}
+            price={item.price}
+            navigation={navigation}
+            foodCategory={item.foodCategory}
+            image={item.image}
+          />
+        )}
+        horizontal // Enables horizontal scrolling
+        showsHorizontalScrollIndicator={false} // Hides the scrollbar
+        // Adds spacing and styling
+        style={{marginBottom: 10}}
+      />
+    </View>
   );
 };
 
@@ -181,12 +142,11 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: 900,
     textAlign: 'center',
-    letterSpacing: -1,
 
-    marginBottom: 15,
-    marginTop: 5,
+    marginBottom: 16,
+    color: '#327958',
   },
   input: {
     height: 40,
@@ -209,20 +169,20 @@ const styles = StyleSheet.create({
   },
   overlayList: {
     position: 'absolute', // Overlay the list
-    top: 55, // Position it below the search bar
-    left: 10,
+    top: 100, // Position it below the search bar
+    left: 20,
     right: 0,
 
     backgroundColor: 'white', // Add background to prevent transparency
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
+
     zIndex: 1, // Ensure it appears above other content
-    maxHeight: 200, // Add a limit to the height for better usability
+    maxHeight: 250, // Add a limit to the height for better usability
     width: '40%',
   },
   item: {
-    fontSize: 18,
+    fontSize: 16,
     paddingVertical: 5,
 
     borderBottomWidth: 1,
@@ -235,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#327958',
     borderRadius: 10,
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 25,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -252,7 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#CDE0D5',
 
     paddingHorizontal: 20,
-    paddingVertical: 25,
+    paddingVertical: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -264,7 +224,7 @@ const styles = StyleSheet.create({
     elevation: 24,
     display: 'flex',
     flexDirection: 'row',
-    gap: 10,
+    gap: 20,
   },
   bottomText: {
     fontSize: 14,
@@ -274,7 +234,7 @@ const styles = StyleSheet.create({
   },
   chickenImage: {
     height: '100%',
-    width: '60%',
+    width: '100%',
   },
 });
 

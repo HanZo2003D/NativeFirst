@@ -1,6 +1,6 @@
 import React, {use, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Alert} from 'react-native';
-import Button from '../../components/Button';
+import Button from '../../components/ButtonComponent';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {signup} from '../../store/slice/authSlice';
@@ -55,7 +55,10 @@ const SignUp: React.FC = () => {
 
       <Button title="Register" onPress={handleSignUp} style={{marginTop: 15}} />
       <Text style={styles.footerText}>
-        Have an account? <Text style={styles.link}>Sign In</Text>
+        Have an account?{' '}
+        <Text style={styles.link} onPress={() => navigation.navigate('login')}>
+          Sign In
+        </Text>
       </Text>
       <View
         style={{
@@ -118,6 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'grey',
     textAlign: 'center',
+    marginTop: 25,
   },
   link: {
     color: '#327958',

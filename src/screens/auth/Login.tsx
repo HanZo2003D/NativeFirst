@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Alert} from 'react-native';
-import Button from '../../components/Button';
+import ButtonComponent from '../../components/ButtonComponent';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/slice/authSlice';
@@ -19,7 +19,8 @@ const Login: React.FC = () => {
     dispatch(login({email, password}));
     if (userLoggedIn) {
       Alert.alert('Login Successful!', `Welcome back, ${email}!`);
-      navigation.navigate('Tabs');
+
+      navigation.navigate('Otp', {email});
     } else {
       Alert.alert('Error', 'Invalid User Email or Password.');
     }
@@ -45,10 +46,10 @@ const Login: React.FC = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Text style={{color: '#327958', fontWeight: 'bold', marginBottom: 25}}>
+      <Text style={{color: '#327958', fontWeight: 'bold', marginBottom: 35}}>
         Forgot Password?
       </Text>
-      <Button title="Login" onPress={handleLogin} />
+      <ButtonComponent title="Login" onPress={handleLogin} />
       <Text style={styles.footerText}>
         Don't have an account?{' '}
         <Text style={styles.link} onPress={() => navigation.navigate('signup')}>
@@ -67,7 +68,7 @@ const Login: React.FC = () => {
         </Text>
         <View style={styles.line} />
       </View>
-      <Button
+      <ButtonComponent
         title="Sign in with Google"
         onPress={handleLogin}
         style={{
@@ -78,7 +79,7 @@ const Login: React.FC = () => {
         }}
         textStyle={{color: '#000', fontSize: 14}}
       />
-      <Button
+      <ButtonComponent
         title="Sign in with Apple"
         onPress={handleLogin}
         style={{backgroundColor: '#fff', borderWidth: 1, borderColor: '#ccc'}}
@@ -96,21 +97,22 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
 
     color: '#333',
   },
   subtitle: {
     color: 'grey',
-    marginTop: 10,
+    marginTop: 8,
     fontWeight: '400',
-    marginBottom: 20,
+    marginBottom: 50,
+    fontSize: 18,
   },
   lable: {
     width: '80%',
     fontSize: 14,
-    marginBottom: 5,
+    marginBottom: 10,
     color: '#666',
     fontWeight: '700',
   },
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
-    marginBottom: 15,
+    marginBottom: 20,
     backgroundColor: '#f9f9f9',
     fontSize: 16,
   },
@@ -130,6 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'grey',
     textAlign: 'center',
+    marginTop: 25,
   },
   link: {
     color: '#327958',

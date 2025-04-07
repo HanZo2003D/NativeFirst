@@ -1,14 +1,25 @@
-import {View, Text} from 'react-native';
+Colors
+
+
+theme: #327958
+
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 
 type Props = {};
 
-const helper = (props: Props) => {
+const OptVerfication = ({route}: {route: any}) => {
+  const {email} = route.params;
   return (
-    <View>
-      <Text>helper</Text>
+    <View style={styles.container}>
+   
     </View>
   );
 };
 
-export default helper;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+export default OptVerfication;
