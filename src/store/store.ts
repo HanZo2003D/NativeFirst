@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import cartReducer from './slice/cartSlice';
 import authReducer from './slice/authSlice';
+
 import {legacy_createStore as createStore} from 'redux';
 // Extended type for Redux actions
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
 // Define the store
 const store = createStore(rootReducer);
 

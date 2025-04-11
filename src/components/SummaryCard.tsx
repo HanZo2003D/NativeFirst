@@ -37,6 +37,11 @@ const SummaryCard: React.FC<SummaryCardProps> = ({cartItems}) => {
       ))}
 
       <View style={styles.line} />
+      <View style={styles.row}>
+        <Text>Shipping</Text>
+        <Text style={styles.priceText}>$5</Text>
+      </View>
+      <View style={styles.line} />
 
       {/* Display total value */}
       <View style={styles.row}>

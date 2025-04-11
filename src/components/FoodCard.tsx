@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
+  id?: number;
   title: string;
   price: number;
   navigation: any;
@@ -10,7 +11,14 @@ type Props = {
   image: any;
 };
 
-const FoodCard = ({title, price, navigation, foodCategory, image}: Props) => {
+const FoodCard = ({
+  title,
+  price,
+  navigation,
+  foodCategory,
+  image,
+  id,
+}: Props) => {
   const [like, setLike] = useState(false);
   const handlePress = () => {
     setLike(!like);
@@ -19,7 +27,7 @@ const FoodCard = ({title, price, navigation, foodCategory, image}: Props) => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('Detail', {title, price, foodCategory, image})
+          navigation.navigate('Detail', {title, price, foodCategory, image, id})
         }>
         <Image source={image} style={styles.chickenImage} />
       </TouchableOpacity>
@@ -33,7 +41,7 @@ const FoodCard = ({title, price, navigation, foodCategory, image}: Props) => {
             name={like ? 'heart' : 'heart-outline'}
             size={25}
             color={like ? 'red' : 'black'}
-            style={{paddingRight: 10, paddingTop: 10}}
+            style={styles.icon}
           />
         </TouchableOpacity>
       </View>
@@ -61,6 +69,10 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 12,
     color: '#327958',
+  },
+  icon: {
+    paddingRight: 10,
+    paddingTop: 10,
   },
 });
 export default FoodCard;

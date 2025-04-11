@@ -12,6 +12,9 @@ import OptVerfication from './src/screens/auth/OptVerfication';
 import DetailScreen from './src/screens/DetailScreen';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {StyleSheet} from 'react-native';
+import Profile from './src/screens/profileScreen/Profile';
+import Settting from './src/screens/profileScreen/Settting';
+import Contact from './src/screens/profileScreen/Contact';
 
 const RootStack = createNativeStackNavigator();
 const App = () => {
@@ -27,6 +30,9 @@ const App = () => {
               <RootStack.Screen name="signup" component={SignUp} />
               <RootStack.Screen name="Detail" component={DetailScreen} />
               <RootStack.Screen name="Cart" component={CartScreen} />
+              <RootStack.Screen name="profile" component={Profile} />
+              <RootStack.Screen name="setting" component={Settting} />
+              <RootStack.Screen name="contact" component={Contact} />
             </RootStack.Navigator>
           </NavigationContainer>
         </Provider>

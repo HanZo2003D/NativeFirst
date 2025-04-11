@@ -75,7 +75,7 @@ const OptVerfication = ({route}: {route: any}) => {
         style={{
           width: '100%',
           position: 'absolute',
-          bottom: 0,
+          bottom: 20,
         }}
       />
     </View>

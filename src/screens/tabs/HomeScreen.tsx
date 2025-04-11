@@ -42,15 +42,13 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
       ) : null}
       {/* Content Below Search */}
       <View style={styles.bottomContent}>
-        <Text style={{color: 'white', marginBottom: 5, fontSize: 20}}>
-          Delivery to Home
-        </Text>
+        <Text style={{color: 'white', marginBottom: 5}}>Delivery to Home</Text>
         <Text
           style={{
             color: 'white',
             marginBottom: 10,
             fontWeight: 400,
-            fontSize: 14,
+            fontSize: 12,
           }}>
           Haritcolony street no 8,Gwarko
         </Text>
@@ -65,7 +63,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.bottomContents}>
-        <View style={{paddingVertical: 30}}>
+        <View>
           <Text
             style={{
               color: '#000',
@@ -91,21 +89,19 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
               paddingVertical: 10,
 
               borderRadius: 8,
-              marginTop: 15,
             }}>
             <Text style={{color: 'white', textAlign: 'center'}}>Order Now</Text>
           </TouchableOpacity>
         </View>
-        <View style={{height: 150, flex: 1}}>
-          <Image
-            source={require('../assets/chicken.webp')}
-            style={styles.chickenImage}
-          />
-        </View>
+
+        <Image
+          source={require('../assets/chicken.webp')}
+          style={styles.chickenImage}
+        />
       </View>
       <Text
         style={{
-          marginTop: 30,
+          marginTop: 20,
           fontSize: 18,
           fontWeight: 'bold',
           marginBottom: 15,
@@ -142,11 +138,11 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 24,
-    fontWeight: 900,
+    fontWeight: 'bold',
     textAlign: 'center',
+    letterSpacing: -1,
 
     marginBottom: 16,
-    color: '#327958',
   },
   input: {
     height: 40,
@@ -195,7 +191,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#327958',
     borderRadius: 10,
     paddingHorizontal: 20,
-    paddingVertical: 25,
+    paddingVertical: 15,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -212,7 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#CDE0D5',
 
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 25,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -224,7 +220,7 @@ const styles = StyleSheet.create({
     elevation: 24,
     display: 'flex',
     flexDirection: 'row',
-    gap: 20,
+    gap: 10,
   },
   bottomText: {
     fontSize: 14,
@@ -234,7 +230,7 @@ const styles = StyleSheet.create({
   },
   chickenImage: {
     height: '100%',
-    width: '100%',
+    width: '60%',
   },
 });
 
